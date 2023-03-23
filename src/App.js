@@ -1,24 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { Suspense } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import PlaygroundProvider from "./Context/PlaygroundContext";
+import ModalProvider from "./Context/ModalContext";
+import routes from "./Pages/Routes"; // array of objects
+// import Home from "./Pages/Home";
+const Loader = () => {
+  <div>Loading...</div>;
+};
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    // Suspence from react
+    <Suspense fallback={Loader()}> 
+    <PlaygroundProvider>
+      <ModalProvider>
+     <BrowserRouter>
+        <Routes>
+          <>
+            {routes.map((route) => (
+              <Route path={route.path} element={route.component} />
+            ))}
+          </>
+        </Routes>
+
+      </BrowserRouter>
+      </ModalProvider>
+      </PlaygroundProvider>
+    </Suspense>
+    // <div><Home/> </div>
   );
 }
 
