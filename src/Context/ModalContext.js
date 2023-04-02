@@ -10,15 +10,20 @@ identifiers: {
   cardID: "",
 }
 }
-const [isopenModal,setIsOpenModal]=useState({...initialModalFields});
+const [isOpenModal,setIsOpenModal]=useState({...initialModalFields});
 const openModal=(value)=>{
   setIsOpenModal(value);
 }
 const closeModal=()=>{
-  setIsOpenModal(...initialModalFields);
+  setIsOpenModal({...initialModalFields});
 }
+const ModalFeatures = {
+  isOpenModal: isOpenModal, // state
+  openModal: openModal, // fn
+  closeModal: closeModal, // fn
+};
   return (
-    <ModalContext.Provider value={{openModal,closeModal,isopenModal}}>
+    <ModalContext.Provider value={ModalFeatures}>
       {children}
     </ModalContext.Provider>
   )
